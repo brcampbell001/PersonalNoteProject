@@ -1,17 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
 
 import App from './components/App';
+import reducers from './reducers'
 
-import notesApp from './Reducers'
+const createStoreWithMiddleware = applyMiddleware()(createStore);
 
-import './index.css';
-
-const state = createStore(notesApp)
 
 ReactDOM.render(
-    <Provider store={store}>
+    <Provider store = {createStoreWithMiddleware(reducers)}>
         <App />
-    </Provider>, document.getElementById('root'));
+    </Provider>
+    , document.getElementById('root'));
+
