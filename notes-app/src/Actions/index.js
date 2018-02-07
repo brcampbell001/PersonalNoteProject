@@ -1,17 +1,18 @@
-export const ADD_NOTE = 'ADD_NOTE';
-export const FETCHING_NOTEs = 'FETCHING_NOTES';
-export const FETCH_NOTES = 'FETCH_NOTES';
-export const DELETE_NOTE = 'DELETE_NOTE';
-export const EDIT_NOTE = 'EDIT-NOTE';
+import axios from 'axios';
 
-export const addNote = note => {
+export const FETCH_NOTES = 'FETCH_NOTES';
+// export const ROOT_URL = 'ROOT_URL';
+// export const API_KEY = 'API_KEY';
+
+export const fetchNotes = props => {
+//    const request = axios.get(`${ROOT_URL}/notes${API_KEY}`);
     return {
-        type: ADD_NOTE,
-        payload: note,
+        type: FETCH_NOTES,
+        payload: request,
     };
 }
 
-export const editNote = note => {
+/* export const editNote = note => {
     return {
         type: EDIT_NOTE,
         payload: note,
@@ -23,4 +24,4 @@ export const deleteNote = noteId => {
         type: DELETE_NOTE,
         payload: noteId,
     };
-}
+} */
