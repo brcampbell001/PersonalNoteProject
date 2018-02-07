@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import FETCH_NOTES from '../actions';
+import { FETCH_NOTES } from '../actions';
 
 const initialState = {
 
@@ -14,3 +14,5 @@ export const notesReducer = (state=initialState, action) => {
             return state;
     }
 } 
+
+export default notesReducer;
