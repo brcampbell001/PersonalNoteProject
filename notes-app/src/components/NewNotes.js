@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { addNote } from '../actions'
+import { Link } from 'react-router-dom';
 
 class NewNotes extends Component {
     renderField(field) {
@@ -19,7 +22,8 @@ class NewNotes extends Component {
     }
 
     onSubmit(values) {
-        console.log(values);
+        this.props.addNote(values);
+        //console.log(values);
     }
 
     render() {
@@ -40,6 +44,9 @@ class NewNotes extends Component {
                 <button type='submit' className='btn btn-success'>
                     Submit Note
                 </button>
+                <Link to="/" className="btn btn-danger">
+                    Cancel Note
+                </Link>
                 </form>
         );
     }
@@ -47,4 +54,4 @@ class NewNotes extends Component {
 
 export default reduxForm({
     form: 'NewNotesForm' // form name
-})(NewNotes);
+})(connect(null, { addNote })(NewNotes));

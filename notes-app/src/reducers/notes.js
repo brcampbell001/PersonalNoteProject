@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import { FETCH_NOTES } from '../actions';
+import { FETCH_NOTES, ADD_NOTE } from '../actions';
 
 const initialState = {
 
