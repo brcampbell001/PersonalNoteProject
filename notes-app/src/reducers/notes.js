@@ -1,16 +1,21 @@
 import _ from 'lodash';
 
-import { FETCH_NOTES, ADD_NOTE } from '../actions';
+import { FETCH_NOTES, SHOW_NOTES, DELETE_NOTE } from '../actions';
 
-const initialState = {
-
-}
-
-export const notesReducer = (state=initialState, action) => {
+export const notesReducer = (state = {}, action) => {
     switch (action.type) {
+        case SHOW_NOTES:
+            const data = action.payload.data;
+            return {
+                ...state,
+                [data.id]: data
+            };
         case FETCH_NOTES:
             return _.mapKeys(action.payload.data, "id");
-        default:
+        case DELETE_NOTE:
+            return _.omit(state, action.payload);
+
+            default:
             return state;
     }
 } 

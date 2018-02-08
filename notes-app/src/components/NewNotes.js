@@ -23,6 +23,7 @@ class NewNotes extends Component {
 
     onSubmit(values) {
         this.props.addNote(values);
+        this.props.history.push('/');
         //console.log(values);
     }
 

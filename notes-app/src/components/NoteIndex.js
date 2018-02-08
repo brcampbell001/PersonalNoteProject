@@ -12,7 +12,7 @@ class NoteIndex extends Component {
 
     renderNotes() {
         return _.map(
-            this.props.notes, note => <li className="list-group-item" key={note.id}> {note.title} </li>
+            this.props.notes, notes => <li className="list-group-item" key={notes.id}> {notes.title} </li>
         )
     }
     render() {
@@ -23,7 +23,7 @@ class NoteIndex extends Component {
                         Add Note
                     </Link>
                 </div>
-                <h2>NOTES</h2>
+                <h3>NOTES</h3>
                 <ul className="list-group">
                     {this.renderNotes()}
                 </ul>

@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import thunk from 'redux-thunk';
-
+import ReduxPromise from 'redux-promise';
+//import thunk from 'redux-thunk';
 import NoteIndex from './components/NoteIndex';
 import NewNotes from './components/NewNotes';
+import ShowNotes from './components/ShowNotes';
 import reducers from './reducers';
 
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 
 
 ReactDOM.render(
@@ -18,6 +19,7 @@ ReactDOM.render(
             <Switch>
                 <Route exact path='/' component={NoteIndex} />
                 <Route path='/notes/new' component={NewNotes} />
+                <Route path='/notes/:id' component={ShowNotes} />
             </Switch>
         </BrowserRouter>
     </Provider>

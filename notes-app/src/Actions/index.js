@@ -1,52 +1,46 @@
 import axios from 'axios';
 
-export const ADD_NOTE = 'ADD_NOTE';
-export const ADDING_NOTE = 'ADDING_NOTE';
-
-export const FETCHING_NOTES = 'FETCHING_NOTES';
 export const FETCH_NOTES = 'FETCH_NOTES';
+
+export const ADD_NOTE = 'ADD_NOTE';
+
+export const SHOW_NOTES = 'SHOW_NOTES';
+
+export const DELETE_NOTE = 'DELETE_NOTE';
 
 export const ERROR = 'ERROR';
 
-const URL = 'http://localhost:5000/api/notes'
+const URL = 'http://localhost:8081/api/notes'
 
-export const addNote = (note) => {
-	const newNote = axios.post(`${URL}/create`, note);
-	return dispatch => {
-		dispatch({type: ADDING_NOTE});
-		newNote
-			.then(({data}) => {
-				dispatch({type: ADD_NOTE, payload: data});
-			})
-			.catch(err => {
-				dispatch({type: ERROR, payload: err});
-			});
-	};
-};
 
-export const fetchNotes = () => {
-	const notes = axios.get(`${URL}/get`);
-	return dispatch => {
-		dispatch({type: FETCHING_NOTES});
-		notes.then(response => {
-			dispatch({type: FETCH_NOTES, payload: response.data});
-		})
-		.catch(err => {
-			dispatch({type: ERROR, payload: err})
-		});
-	};
-};
-
-/* export const editNote = note => {
+export const fetchNotes = (notes) => {
+    const servreq = axios.get(`${URL}/`);
     return {
-        type: EDIT_NOTE,
-        payload: note,
+        type: FETCH_NOTES,
+        payload: servreq
+    };
+}
+
+export const addNote = (notes, callback) => {
+	const servreq = axios.post(`${URL}/add`, notes).then(() => callback());
+	return {
+        type: ADD_NOTE,
+        payload: servreq,
+    }
+};
+
+export const showNotes = (id) => {
+    const servreq = axios.get(`${URL}/${id}`)
+    return {
+        type: SHOW_NOTES,
+        payload: servreq
     }
 }
 
-export const deleteNote = noteId => {
+export const deleteNote = (id, callback) => {
+    const servreq = axios.delete(`${URL}/${id}`).then(() => callback());
     return {
         type: DELETE_NOTE,
-        payload: noteId,
-    };
-} */
+        payload: id
+    }
+}
