@@ -3,19 +3,29 @@ import { Field, reduxForm } from 'redux-form';
 
 class NewNotes extends Component {
     renderField(field) {
+        const { touched, error } = field.meta;
+        const className = `form-group ${touched && error ? 'has-danger' : ''}`;
         return (
-            <div className="form-group">
+            <div className={className}>
                 <label>
                     {field.label}
                 </label>
                 <input className="form-control" type="text" {...field.input} />
+                <div className='text-help'>
+                    { touched ? error : ''}
+                </div>
             </div>
         ) 
     }
 
+    onSubmit(values) {
+        console.log(values);
+    }
+
     render() {
+        const { handleSubmit } = this.props; // passed by redux-form
         return (
-            <form>
+            <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                 <Field
                     label='Note Title'
                     name='title'
@@ -27,6 +37,9 @@ class NewNotes extends Component {
                     name='content'
                     component={this.renderField}
                 />
+                <button type='submit' className='btn btn-success'>
+                    Submit Note
+                </button>
                 </form>
         );
     }

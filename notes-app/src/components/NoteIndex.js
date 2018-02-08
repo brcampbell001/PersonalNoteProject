@@ -24,7 +24,7 @@ class NoteIndex extends Component {
                     </Link>
                 </div>
                 <h2>NOTES</h2>
-                <ul classname="list-group">
+                <ul className="list-group">
                     {this.renderNotes()}
                 </ul>
             </div>
