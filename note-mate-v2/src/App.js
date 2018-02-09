@@ -94,13 +94,13 @@ class App extends Component {
           })}
         </div>
         <div className='ShowNote'>
-          <h2>Note Content</h2>
-          <button onClick={this.toggleAdd}>Add New Note</button>
+          <h2>BEN'S KISS AND ANTI-FLUFFY NOTE APP</h2>
+         <button onClick={this.toggleAdd}>Add New Note</button>
           <form>
-            <input name='title' onChange={this.noteChangeHandler} value={this.state.title} type='text' placeholder="title" required/>
-            <input className='ShowNote--content' name='content' onChange={this.noteChangeHandler} value={this.state.content} type='text' placeholder="Add Notes" required/>
+            <input name='title' onChange={this.noteChangeHandler} value={this.state.title} type='text' placeholder="Note Title"/>
+            <input className='ShowNote--content' name='content' onChange={this.noteChangeHandler} value={this.state.content} type='text' placeholder="Add Notes"/>
             <button onClick={this.newNote}>Save</button>
-            <button onClick={this.deleteNote}>Delete Note</button>
+            <button onClick={this.deleteNote}>Delete</button>
           </form>
         </div>
       </div>

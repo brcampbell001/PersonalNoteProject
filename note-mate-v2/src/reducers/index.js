@@ -4,8 +4,8 @@ let id = 0;
 const initialState = {
     notes: [{
         id: id,
-        title: 'Let the Notes Begin!',
-        content: 'Insert Note Content Here'
+        title: '',
+        content: ''
     }],
 }
 
