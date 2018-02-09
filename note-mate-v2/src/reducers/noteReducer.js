@@ -7,6 +7,10 @@ export default (state = [], action) => {
             ...state,
             Object.assign({}, action.note)
         ];
+
+        case actionTypes.DELETE_NOTE:
+        return state.filter((data, i) => i !== action.id);
+        
         default:
             return state;
     }

@@ -6,3 +6,10 @@ export const addNote = (note) => {
         note: note
     }
 };
+
+export const deleteNote = (id) => {
+    return {
+        type: actionTypes.DELETE_NOTE,
+        id: id
+    }
+}

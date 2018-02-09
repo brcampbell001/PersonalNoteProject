@@ -31,22 +31,41 @@ class App extends Component {
     this.props.addNote(note);
   }
 
+  listView(data, index) {
+    return (
+      <div>
+        <div>
+        <li key={index}>{data.noteName}</li>
+      </div>
+      <div>
+        <button onClick={(e) => this.deleteNote(e, index)}> Delete </button>
+      </div>
+    </div>
+    )
+  }
+
+  deleteNote(e, index) {
+    e.preventDefault();
+    this.props.deleteNote(index);
+  }
+
   render() {
   
     return (
       <div>
         <h1>Ben's KISS/Non-fluffy Attempt/Version 2.0 Note App</h1>
-         <ul>
-              {this.props.notes.map((note, i) => <li key={i}>{note.noteName}</li> )}
-         </ul>
-        
 
       <div>
-        <h3>Add Note</h3>
+        <h3>Take a Note!</h3>
+        <br />
         <form onSubmit={this.handleSubmit}>
-          <input type="text" onChange={this.handleChange} />
-          <input type="submit" />
+          <input type="text" onChange={this.handleChange} value={this.state.name} /><br />
+          <input type="submit" value="ADD" />
         </form>
+        <br />
+        <ul>
+          {this.props.notes.map((note, i) => this.listView(note, i))}
+        </ul>
       </div>
     </div>
     );
@@ -61,8 +80,10 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addNote: note => dispatch(noteAction.addNote(note))
+    addNote: note => dispatch(noteAction.addNote(note)),
+    deleteNote: index => dispatch(noteAction.deleteNote(index)) 
   }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
+
