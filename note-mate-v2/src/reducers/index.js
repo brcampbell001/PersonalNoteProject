@@ -17,13 +17,13 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state, 
                 notes: [...state.notes, 
-                    {...action.payload, ID: id}
+                    {...action.payload, id: id}
                 ]};
         case EDIT_NOTE:
             return {
                 ...state, 
                 notes: state.notes.map(note => {
-                if (note.ID === action.payload.ID) {
+                if (note.id === action.payload.id) {
                     return action.payload
                 } return note;
             })}
@@ -31,7 +31,7 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state, 
                 notes: state.notes.filter(note => 
-                    note.ID !== action.payload)};
+                    note.id !== action.payload)};
 
         default:
             return state;
