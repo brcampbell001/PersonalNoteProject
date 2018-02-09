@@ -1,6 +1,64 @@
-import { combineReducers } from 'redux';
-import notes from './noteReducer';
+import { ADD_NOTE, EDIT_NOTE, DELETE_NOTE } from '../actions'
 
-export default combineReducers({
-    notes: notes
-});
+let id = 0;
+const initialState = {
+    notes: [{
+        id: id,
+        title: 'Let the Notes Begin!',
+        content: 'Insert Note Content Here'
+    }],
+}
+
+
+const rootReducer = (state = initialState, action) => {
+    switch(action.type) {
+        case ADD_NOTE:
+            ++id;
+            return {
+                ...state, 
+                notes: [...state.notes, 
+                    {...action.payload, ID: id}
+                ]};
+        case EDIT_NOTE:
+            return {
+                ...state, 
+                notes: state.notes.map(note => {
+                if (note.ID === action.payload.ID) {
+                    return action.payload
+                } return note;
+            })}
+        case DELETE_NOTE:
+            return {
+                ...state, 
+                notes: state.notes.filter(note => 
+                    note.ID !== action.payload)};
+
+        default:
+            return state;
+    }
+}
+
+export default rootReducer;
+
+/* export default (state = [], action) => {
+    switch (action.type) {
+        case actionTypes.ADD_NOTE:
+        ++id;
+        return [
+            ...state,
+            Object.assign({}, action.note)
+        ];
+
+        case actionTypes.DELETE_NOTE:
+        return state.filter((data, i) => i !== action.id);
+
+        case actionTypes.EDIT_NOTE:
+        return [
+            ...state,
+            note: state.note.map(note => {})
+        ]
+
+        default:
+            return state;
+    }
+} */

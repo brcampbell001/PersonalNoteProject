@@ -1,10 +1,122 @@
 import React, { Component } from 'react';
+import './App.css';
 import { connect } from 'react-redux';
-import * as noteAction from './actions/noteAction';
-
-// import './App.css';
+import {addNote, editNote, deleteNote} from './actions'
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: '',
+      content: '',
+      id: -1
+    }
+  }
+
+  componentDidMount() {
+    const defaultNote = this.props.notes[0];
+    this.setState({
+      title: defaultNote.title,
+      content: defaultNote.content,
+      id: defaultNote.id
+    })
+  }
+
+  toggleAdd = () => {
+    this.setState({
+      title: '',
+      content: '',
+      id: -1
+    })
+  }
+
+  noteChangeHandler = event => {
+    const {name, value} = event.target;
+    this.setState({
+      [name]: value
+    });
+  }
+
+  newNote = event => {
+    event.preventDefault();
+    const note = {
+      title: this.state.title,
+      content: this.state.content
+    }
+
+    const updateNote = {
+      id: this.state.id,
+      title: this.state.title,
+      content: this.state.content
+    }
+
+    if (this.state.id > -1) {
+      this.props.editNote(updateNote);
+    } else {
+      this.props.addNote(note);
+    }
+  }
+
+  showNote = (title, content, id) => {
+    const notetitle = title;
+    const notecontent = content;
+    const noteid = id;
+    this.setState({title: notetitle, content: notecontent, id: noteid});
+  }
+
+  deleteNote = (event) => {
+    if(this.state.id === -1) {
+      this.setState({
+        title: '',
+        content: '',
+        id: -1
+      })
+    } else {
+      event.preventDefault();
+      this.props.deleteNote(this.state.id);
+      this.setState({
+        title: '',
+        content: '',
+        id: -1
+      })
+    }
+  }
+
+  render() {
+    return (
+      <div className='App'>
+        <div className='Notes'>
+          {this.props.notes.map((note, i) => {
+            return <div className='note' onClick={() => {this.showNote(note.title, note.content, note.id)}} key={note.id}>
+              <div>{note.title}</div>
+              <div>{note.content}</div>
+            </div>
+          })}
+        </div>
+        <div className='ShowNote'>
+          <h2>Note Content</h2>
+          <button onClick={this.toggleAdd}>Add New Note</button>
+          <form>
+            <input name='title' onChange={this.noteChangeHandler} value={this.state.title} type='text' placeholder="title" required/>
+            <input className='ShowNote--content' name='content' onChange={this.noteChangeHandler} value={this.state.content} type='text' placeholder="Add Notes" required/>
+            <button onClick={this.newNote}>Save</button>
+            <button onClick={this.deleteNote}>Delete Note</button>
+          </form>
+        </div>
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    notes: state.notes
+  }
+}
+
+export default connect(mapStateToProps, {addNote, editNote, deleteNote})(App);
+
+/*class App extends Component {
 
   constructor(props) {
     super(props);
@@ -68,12 +180,12 @@ class App extends Component {
         <h3>Take a Note!</h3>
         <br />
         <form onSubmit={this.handleSubmit}>
-          <input type="text" onChange={this.handleChange} value={this.state.name} /><br />
+          <input type="content" onChange={this.handleChange} value={this.state.name} /><br />
           <input type="submit" value="ADD" />
         </form>
         <form obSubmit={this.handleSubmitEdit}>
         <input type="hidden" value={this.state.noteId} />
-          <input type="text" onChange={this.handleChangeEditNote} value={this.state.noteName} /><br />
+          <input type="content" onChange={this.handleChangeEditNote} value={this.state.noteName} /><br />
           <input type="submit" value="EDIT" />
         </form>
         <br />
@@ -100,5 +212,5 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App); */
 
