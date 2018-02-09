@@ -5,8 +5,12 @@ import { Provider } from 'react-redux';
 import './index.css';
 import App from './App';
 
+import configStore from './store/configStore';
+
+const store = configStore();
+
 ReactDOM.render(
-<Provider>
+<Provider store={store}>
     <App />
 </Provider>
 , document.getElementById('root'));
