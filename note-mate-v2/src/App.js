@@ -12,38 +12,37 @@ class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
-      note: ''
+      noteName: ''
     }
   }
 
   handleChange(e) {
     this.setState ({
-      note: e.target.value
+      noteName: e.target.value
     })
   }
 
   handleSubmit(e) {
     e.preventDefault();
     let note = {
-      note: this.state.note
+      noteName: this.state.noteName
       // console.log(this.state.note);
     }
     this.props.addNote(note);
   }
 
   render() {
-    let note;
+  
     return (
       <div>
         <h1>Ben's KISS/Non-fluffy Attempt/Version 2.0 Note App</h1>
-        <hr/>
-        { <ul>
-              {this.props.notes.map((note, i) => <li key={i}>{note.name}</li> )}
-          </ul>
-        }
+         <ul>
+              {this.props.notes.map((note, i) => <li key={i}>{note.noteName}</li> )}
+         </ul>
+        
 
       <div>
-        <h3>Add Note Form</h3>
+        <h3>Add Note</h3>
         <form onSubmit={this.handleSubmit}>
           <input type="text" onChange={this.handleChange} />
           <input type="submit" />
