@@ -31,6 +31,15 @@ class App extends Component {
     this.props.addNote(note);
   }
 
+  handleSubmiitEdit(e) {
+    e.preventDefault();
+    let note = {
+      noteName: this.state.noteName,
+      noteId: this.state.noteId,
+    }
+    this.props.editNote(note);
+  }
+
   listView(data, index) {
     return (
       <div>
@@ -53,7 +62,7 @@ class App extends Component {
   
     return (
       <div>
-        <h1>Ben's KISS/Non-fluffy Attempt/Version 2.0 Note App</h1>
+        <h1>Note App</h1>
 
       <div>
         <h3>Take a Note!</h3>
@@ -61,6 +70,11 @@ class App extends Component {
         <form onSubmit={this.handleSubmit}>
           <input type="text" onChange={this.handleChange} value={this.state.name} /><br />
           <input type="submit" value="ADD" />
+        </form>
+        <form obSubmit={this.handleSubmitEdit}>
+        <input type="hidden" value={this.state.noteId} />
+          <input type="text" onChange={this.handleChangeEditNote} value={this.state.noteName} /><br />
+          <input type="submit" value="EDIT" />
         </form>
         <br />
         <ul>
@@ -81,7 +95,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addNote: note => dispatch(noteAction.addNote(note)),
-    deleteNote: index => dispatch(noteAction.deleteNote(index)) 
+    deleteNote: index => dispatch(noteAction.deleteNote(index)),
+    editNote: note => dispatch(noteAction.editNote(note)) 
   }
 };
 

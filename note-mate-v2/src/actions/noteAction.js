@@ -12,4 +12,11 @@ export const deleteNote = (id) => {
         type: actionTypes.DELETE_NOTE,
         id: id
     }
-}
+};
+
+export const editNote = (note) => {
+    return {
+        type: actionTypes.EDIT_NOTE,
+        note: note
+    }
+};

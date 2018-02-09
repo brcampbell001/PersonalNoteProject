@@ -10,7 +10,13 @@ export default (state = [], action) => {
 
         case actionTypes.DELETE_NOTE:
         return state.filter((data, i) => i !== action.id);
-        
+
+        case actionTypes.EDIT_NOTE:
+        return [
+            ...state,
+            Object.assign({}, action.note === action.id)
+        ]
+
         default:
             return state;
     }
